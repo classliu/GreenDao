@@ -8,7 +8,7 @@
         android:icon="@mipmap/ic_lantern"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name=".ui.GreenActivity"
             android:label="@string/app_name"
@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
        <!-- <activity
-            android:name="com.classliu.greendao.MainActivity"
+            android:name=".ui.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

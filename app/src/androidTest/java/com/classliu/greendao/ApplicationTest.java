@@ -1,4 +1,4 @@
-package com.classliu.greendaotest;
+package com.classliu.greendao;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
