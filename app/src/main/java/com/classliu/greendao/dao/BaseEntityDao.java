@@ -1,16 +1,13 @@
-package com.classliu.entitydao;
+package com.classliu.greendao.dao;
 
 
+import org.greenrobot.greendao.AbstractDao;
+import org.greenrobot.greendao.query.QueryBuilder;
+import org.greenrobot.greendao.query.WhereCondition;
 
 import java.util.List;
 
-import de.greenrobot.dao.AbstractDao;
-import de.greenrobot.dao.query.QueryBuilder;
-import de.greenrobot.dao.query.WhereCondition;
 
-/**
- * Created by ji_cheng on 2016/11/30.
- */
 @SuppressWarnings("unchecked")
 public abstract class BaseEntityDao<DAO extends AbstractDao<E, K>, E, K> {
     public static final boolean DEBUG = true;
