@@ -21,11 +21,16 @@ import android.widget.Toast;
 
 import com.classliu.greendao.R;
 import com.classliu.greendao.bean.TestData;
+import com.classliu.greendao.dao.DaoMaster;
 import com.classliu.greendao.dao.TestDataEntityDao;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 数据库 test
@@ -62,7 +67,6 @@ public class GreenActivity  extends AppCompatActivity{
 
     private void initData(){
         testDataEntityDao = new TestDataEntityDao();
-
         List<TestData> list = testDataEntityDao.queryEntities("where CREAT_ID != ?", "*");
         dataList.addAll(list);
         id = dataList.size();
@@ -87,7 +91,7 @@ public class GreenActivity  extends AppCompatActivity{
 
     public void add1000(View v){
         long startTime = System.currentTimeMillis();
-
+        List<TestData> list = new ArrayList<>();
         for (int i =0;i<1000 ;i++){
             TestData testData = new TestData();
             testData.setId(id);
@@ -102,13 +106,18 @@ public class GreenActivity  extends AppCompatActivity{
                     "参差荇菜，左右采之。窈窕淑女，琴瑟友之。\n" +
                     "参差荇菜，左右芼之。窈窕淑女，钟鼓乐之。" + creat_id);
             testData.setTestLong(System.currentTimeMillis());
-            testDataEntityDao.insertEntity(testData);
+            list.add(testData);
+//            testDataEntityDao.insertEntity(testData);
             id++;
             creat_id++;
         }
-
+        testDataEntityDao.getEntityDao().insertOrReplaceInTx(list);
         Toast.makeText(this, "add", Toast.LENGTH_SHORT).show();
         Log.e("----add1000time----", String.valueOf(System.currentTimeMillis() - startTime));
+    }
+
+    public void asyncadd1000(View  view){
+        insert1000();
     }
 
     public void delete(View v) {
@@ -160,48 +169,56 @@ public class GreenActivity  extends AppCompatActivity{
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void  setTransLucentStatu(){
-        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
-                    | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.TRANSPARENT);
-        }
-        else {
-            this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        }
-    }
-
     private void setFullScreen() {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
+
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            long startTime = System.currentTimeMillis();
+            List<TestData> list = new ArrayList<>();
+            for (int i =0;i<1000 ;i++){
+                TestData testData = new TestData();
+                testData.setId(id);
+                testData.setCreatId(creat_id);
+                testData.setTestBoolean(false);
+                testData.setTestDate(new Date(System.currentTimeMillis()));
+                testData.setTestInt(i);
+                testData.setReader("testString," +
+                        "关关雎鸠，在河之洲。窈窕淑女，君子好逑。\n" +
+                        "参差荇菜，左右流之。窈窕淑女，寤寐求之。\n" +
+                        "求之不得，寤寐思服。悠哉悠哉，辗转反侧。\n" +
+                        "参差荇菜，左右采之。窈窕淑女，琴瑟友之。\n" +
+                        "参差荇菜，左右芼之。窈窕淑女，钟鼓乐之。" + creat_id);
+                testData.setTestLong(System.currentTimeMillis());
+                list.add(testData);
+                id++;
+                creat_id++;
+            }
+            testDataEntityDao.getEntityDao().insertOrReplaceInTx(list);
+            testDataEntityDao.getEntityDao().detachAll();
+            Log.e("----add1000time--sync--", String.valueOf(System.currentTimeMillis() - startTime));
+        }
+    };
+
+    private void insert1000(){
+        long startTime = System.currentTimeMillis();
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
+        executorService.execute(runnable);
+        executorService.shutdown();
+        while (true){
+            if (executorService.isTerminated()) {
+                break;
+            }
+            try {
+                executorService.awaitTermination(1, TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        Log.e("---add1000time--async--", String.valueOf(System.currentTimeMillis() - startTime));
     }
 }

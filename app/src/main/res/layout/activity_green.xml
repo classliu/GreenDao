@@ -69,6 +69,14 @@
             android:gravity="center"
             android:onClick="refresh"
             android:text="刷新" />
+        <Button
+            android:id="@+id/async"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="asyncadd1000"
+            android:text="asyncadd1000" />
     </LinearLayout>
 
     <ListView
