@@ -94,4 +94,13 @@ public class TestData {
         this.creatId = creatId;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        return this.hashCode() == o.hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        return (id+reader).hashCode();
+    }
 }

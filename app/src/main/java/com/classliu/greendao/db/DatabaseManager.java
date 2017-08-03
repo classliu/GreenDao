@@ -2,9 +2,6 @@ package com.classliu.greendao.db;
 
 import android.app.Application;
 
-import com.classliu.greendao.dao.DaoMaster;
-import com.classliu.greendao.dao.DaoSession;
-
 /**
  * 数据库工具管理类
  * Created by ji_cheng on 2016/12/1.

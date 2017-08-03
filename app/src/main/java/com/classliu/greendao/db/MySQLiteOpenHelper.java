@@ -3,7 +3,6 @@ package com.classliu.greendao.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.classliu.greendao.dao.DaoMaster;
 import com.classliu.greendao.dao.TestData2Dao;
 import com.classliu.greendao.dao.TestData3Dao;
 import com.classliu.greendao.dao.TestDataDao;

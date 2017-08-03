@@ -1,4 +1,4 @@
-package com.classliu.greendao.dao;
+package com.classliu.greendao.entityDao;
 
 
 import org.greenrobot.greendao.AbstractDao;

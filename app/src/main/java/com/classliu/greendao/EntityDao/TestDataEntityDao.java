@@ -1,6 +1,7 @@
-package com.classliu.greendao.dao;
+package com.classliu.greendao.entityDao;
 
 import com.classliu.greendao.bean.TestData;
+import com.classliu.greendao.dao.TestDataDao;
 import com.classliu.greendao.db.DatabaseManager;
 
 /**

@@ -1,11 +1,14 @@
-package com.classliu.greendao.dao;
+package com.classliu.greendao.db;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.util.Log;
 
-import com.classliu.greendao.db.DatabaseManager;
+import com.classliu.greendao.dao.TestData2Dao;
+import com.classliu.greendao.dao.TestData3Dao;
+import com.classliu.greendao.dao.TestData4Dao;
+import com.classliu.greendao.dao.TestDataDao;
 
 import org.greenrobot.greendao.AbstractDaoMaster;
 import org.greenrobot.greendao.database.StandardDatabase;

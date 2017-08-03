@@ -83,5 +83,13 @@ public class TestData2 {
     public void setTestBoolean(Boolean testBoolean) {
         this.testBoolean = testBoolean;
     }
+    @Override
+    public boolean equals(Object o) {
+        return this.hashCode() == o.hashCode();
+    }
 
+    @Override
+    public int hashCode() {
+        return (id+testString).hashCode();
+    }
 }
