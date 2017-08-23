@@ -14,10 +14,9 @@ public class GreenApplication extends Application {
 
     @Override
     public void onCreate() {
-        MigrationHelper.DEBUG = true;
         super.onCreate();
         DatabaseManager.initDB(this);
         Stetho.initializeWithDefaults(this); //facebook 开源工具
     }
-    
+
 }

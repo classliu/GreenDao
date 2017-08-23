@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.classliu.greendao.BuildConfig;
+
 import org.greenrobot.greendao.AbstractDao;
 import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.database.StandardDatabase;
@@ -25,7 +27,7 @@ import java.util.List;
  */
 public class MigrationHelper {
 
-    public static boolean DEBUG = true;
+    public static boolean DEBUG = BuildConfig.DEBUG;
     private static String TAG = "MigrationHelper";
 
     public static void migrate(SQLiteDatabase db, Class<? extends AbstractDao<?, ?>>... daoClasses) {

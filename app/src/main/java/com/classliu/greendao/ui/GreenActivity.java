@@ -25,7 +25,7 @@ import com.classliu.greendao.ui.view.GreenView;
 import java.util.List;
 
 /**
- * 数据库 test
+ * greendao 实例分析
  * Created by ji_cheng on 2017/2/24.
  */
 public class GreenActivity extends AppCompatActivity implements GreenView, View.OnClickListener {
@@ -124,7 +124,7 @@ public class GreenActivity extends AppCompatActivity implements GreenView, View.
     public void add10000(List<TestData> testDatas) {
         long startTime = System.currentTimeMillis();
         testDataEntityDao.getEntityDao().insertOrReplaceInTx(testDatas);
-        Toast.makeText(this, "add"+String.valueOf(System.currentTimeMillis() - startTime), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "add" + String.valueOf(System.currentTimeMillis() - startTime), Toast.LENGTH_SHORT).show();
         Log.e("----add1000time----", String.valueOf(System.currentTimeMillis() - startTime));
     }
 
@@ -132,7 +132,7 @@ public class GreenActivity extends AppCompatActivity implements GreenView, View.
     public void asyncadd10000(List<TestData2> testDatas) {
         long startTime = System.currentTimeMillis();
         new SaveDBSync<>(testDatas, testData2EntityDao).insertTODB();
-        Toast.makeText(this, "add"+String.valueOf(System.currentTimeMillis() - startTime), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "add" + String.valueOf(System.currentTimeMillis() - startTime), Toast.LENGTH_SHORT).show();
     }
 
     @Override
