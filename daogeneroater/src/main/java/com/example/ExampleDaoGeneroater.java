@@ -11,8 +11,11 @@ public class ExampleDaoGeneroater {
         addTest2(schema);
         addTest3(schema);
         addTest4(schema);
-        // C:\Users\ji_cheng\Desktop\ownshare\GreenDaoDemo\app\src\main\java-gen
-        new DaoGenerator().generateAll(schema, "\\Users\\ji_cheng\\Desktop\\ownshare\\GreenDaoDemo\\app\\src\\main\\java-gen");
+        addTest5(schema);
+
+        //H:\demo\GreenDao\app\src
+        //H:\demo\GreenDao\app\src\main\java-gen
+        new DaoGenerator().generateAll(schema, "\\H:\\demo\\GreenDao\\app\\src\\main\\java-gen");
     }
 
     private static void addTest4( Schema schema) {
@@ -46,6 +49,16 @@ public class ExampleDaoGeneroater {
     }
     private static void addTest3(Schema schema) {
         Entity testData = schema.addEntity("TestData3");
+        testData.addIdProperty().primaryKey().autoincrement();
+        testData.addStringProperty("testString");
+        testData.addLongProperty("testLong");
+        testData.addDateProperty("testDate");
+        testData.addIntProperty("testInt");
+        testData.addBooleanProperty("testBoolean");
+    }
+
+    private static void addTest5(Schema schema) {
+        Entity testData = schema.addEntity("TestData5");
         testData.addIdProperty().primaryKey().autoincrement();
         testData.addStringProperty("testString");
         testData.addLongProperty("testLong");

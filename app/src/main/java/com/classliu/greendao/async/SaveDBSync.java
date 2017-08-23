@@ -27,14 +27,14 @@ public class SaveDBSync<T> implements Runnable {
         this.mDao = baseEntityDao;
     }
 
-    public void insertTODB(){
+    public void insertTODB() {
         long startTime = System.currentTimeMillis();
         ExecutorService executorService = Executors.newFixedThreadPool(3);
 
         executorService.execute(this);
 
         executorService.shutdown();
-        while (true){
+        while (true) {
             if (executorService.isTerminated()) {
                 break;
             }
@@ -52,13 +52,13 @@ public class SaveDBSync<T> implements Runnable {
     public void run() {
         long startTime = System.currentTimeMillis();
 
-        if (tempList != null && tempList.size() > 0){
-            AsyncSession asyncSession =  DatabaseManager.newSession().startAsyncSession();
+        if (tempList != null && tempList.size() > 0) {
+            AsyncSession asyncSession = DatabaseManager.newSession().startAsyncSession();
             asyncSession.runInTx(new Runnable() {
                 @Override
                 public void run() {
                     mDao.getEntityDao().insertOrReplaceInTx(tempList);
-                    mDao.getEntityDao().detachAll();
+                    mDao.getEntityDao().detachAll();  //结束之后清空缓存
                 }
             });
         }

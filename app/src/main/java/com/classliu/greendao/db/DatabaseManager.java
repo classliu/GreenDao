@@ -8,7 +8,7 @@ import android.app.Application;
  */
 public class DatabaseManager {
 
-    public static final String DB_NAME = "test.db";
+    public static final String DB_NAME = "greendao.db";
     public static final int SCHEMA_VERSION = 1;
 
     public DatabaseManager() {
