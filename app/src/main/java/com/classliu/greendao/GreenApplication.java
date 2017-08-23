@@ -3,7 +3,6 @@ package com.classliu.greendao;
 import android.app.Application;
 
 import com.classliu.greendao.db.DatabaseManager;
-import com.classliu.greendao.utils.MigrationHelper;
 import com.facebook.stetho.Stetho;
 
 /**
