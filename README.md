@@ -22,3 +22,4 @@
     浏览器中输入
     // chrome://inspect/#devices
 ## 20170823 更新代码
+简书简单的介绍：http://www.jianshu.com/p/30735d714c0a
